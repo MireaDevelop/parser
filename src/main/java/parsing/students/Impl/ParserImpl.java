@@ -96,10 +96,7 @@ public class ParserImpl implements Parser {
                 if (DateUtil.isCellDateFormatted(cell)) {
                     Result = cell.getDateCellValue().toString();
                 } else {
-                    Res =(converter(cell.getNumericCellValue()));// Double.toString(cell.getNumericCellValue());
-                    //System.out.println(Res);
-                    Result = String.valueOf(converter(cell.getNumericCellValue()));
-                    // Guava CharMatcher
+                    Result = String.valueOf( (long)(cell.getNumericCellValue()));
                 }
                 break;
             case Cell.CELL_TYPE_BOOLEAN:
@@ -117,12 +114,24 @@ public class ParserImpl implements Parser {
     static long converter(double d){
         long lon;
         while(true){
-
             if (d%10 !=0) {
+                d*=10;
+            } else{
                 lon = (long) d;
                 break;
-            } else
-                d*=10;
+            }
+
         }return lon;
+    }
+
+    static String phoneconvert(String phone){
+        String s;
+        int i,q;
+        for(i = 0; i<phone.length();i++){
+            q = phone.charAt(i);
+           // if ()
+        }
+
+        return phone;
     }
 }
