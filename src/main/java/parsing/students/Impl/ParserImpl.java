@@ -56,7 +56,7 @@ public class ParserImpl implements Parser {
 }
 */
 
-    public static ArrayList<Student> getStudents (FileInputStream fis,int iname, int isurname, int iemail, int iphone,int iid )throws IOException{
+    public static ArrayList<Student> getStudents (FileInputStream fis,int iname, int isurname, int iemail, int iid,int iphone )throws IOException{
         Workbook wb = new XSSFWorkbook(fis);
         ArrayList<Student> list = new ArrayList();
 
@@ -72,8 +72,8 @@ public class ParserImpl implements Parser {
             surname = (getCellText(row.getCell(isurname)));
             email = (getCellText(row.getCell(iemail)));
             id = (getCellText(row.getCell(iid)));
-            phone = (getCellText(row.getCell(iphone)));
-
+            phone = phoneconvert(getCellText(row.getCell(iphone)));
+            System.out.println(phone);
             list.add(new Student(name,surname,email,phone,id));
         }
         list.remove(0);
@@ -125,13 +125,23 @@ public class ParserImpl implements Parser {
     }
 
     static String phoneconvert(String phone){
-        String s;
-        int i,q;
-        for(i = 0; i<phone.length();i++){
-            q = phone.charAt(i);
-           // if ()
+        String s = "";
+        int i;
+        for(i = 0; i<phone.length();i++) {
+            if (Character.isDigit(phone.charAt(i))) {
+                s = s + phone.charAt(i);
+            }
         }
-
-        return phone;
+            /*if ((s.charAt(0) ==(char) 8) & (s.length() == 11) ) {
+                String str = "7";
+                for (i = 1; i<s.length();i++){
+                    str = str + s.charAt(i);
+                }
+                s = str;
+            }*/
+              if (s.length() == 10 ) {
+                s = 7 + s;
+            }
+        return s;
     }
 }
