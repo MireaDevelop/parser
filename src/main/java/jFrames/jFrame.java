@@ -23,7 +23,7 @@ public class jFrame extends JFrame {
     private static String messageText;
     private static String fileName;
     private static String themeText;
-    FileInputStream fis;
+
 
     public jFrame() {
         super("Тестовый парсер");
@@ -80,11 +80,7 @@ public class jFrame extends JFrame {
                 File file = fileset.getSelectedFile();
                 label.setText(file.getName());
                 fileName = (file.getAbsolutePath());
-                try {
-                    fis = new FileInputStream(file.getAbsolutePath());
-                } catch (IOException ex){
-                    ex.printStackTrace();
-                }
+
             }
         });
 
@@ -94,9 +90,12 @@ public class jFrame extends JFrame {
                 messageText = messageField.getText();
                 ArrayList<Student> list;
                 try {
-                    list = ParserImpl.getStudents(fis, 1, 2, 3, 4, 5);
+                    list = ParserImpl.getStudents(fileName, 1, 2, 3, 4);
+                    ParserImpl.getTitles(fileName);
+
                     //Lists.SortList(Parsing.parse(jFrame.getFileName()));
                 } catch (IOException e1) {
+                    e1.printStackTrace();
                     JOptionPane.showMessageDialog(this,
                             "Выберите документ с данными.",
                             "Не выбран документ.",
@@ -106,6 +105,7 @@ public class jFrame extends JFrame {
                     try{
                         SendMails.Send(list);
                     }catch (AuthenticationFailedException e2){
+                        e2.printStackTrace();
                         JOptionPane.showMessageDialog(this,
                         "Проверьте введёные в настройках данные",
                                 "Ошибка авторизации!",

@@ -1,10 +1,7 @@
 package parsing.students.Impl;
 
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DateUtil;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -12,82 +9,89 @@ import parsing.students.Parser;
 import parsing.students.Student;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.apache.poi.ss.usermodel.IndexedColors.ORANGE;
 
 /**
  * Created by vadim0872 on 11.04.16.
  */
 public class ParserImpl implements Parser {
+         int iemail;
 
-/*
-    List<Student> list = new ArrayList<Student>();
-    XSSFWorkbook workbook;
 
-    public ParserImpl(String filePath) throws IOException {
-        workbook = new ExcelWorkImpl().getWorkbook(filePath);
-    }
+    public static ArrayList<Student> getStudents (String file,int iname, int iemail, int iid,int iphone )throws IOException{
+        FileInputStream fis = new FileInputStream(file);
 
-    public List<Student> getStudents() {
-    for(int i = 0; i < workbook.getNumberOfSheets(); i++) {
-        XSSFSheet sheet = workbook.getSheetAt(i);
-       try {
-        for(int j = 1; j <= sheet.getLastRowNum(); j++) {
-            String name = String.valueOf(sheet.getRow(j).getCell(0));
-            String surname = String.valueOf(sheet.getRow(j).getCell(1));
-            String email = String.valueOf(sheet.getRow(j).getCell(2));
-            String phone = String.valueOf((sheet.getRow(j).getCell(3).getStringCellValue()));
-            String id = String.valueOf(sheet.getRow(j).getCell(4).getStringCellValue()).replace("id", "");
-            if (name.equals("null")) {
-                break;
-            }
-            list.add(new Student(name, surname, email, phone, id));
-        }
-        } catch (NullPointerException e) {
-        //  logger.debug("Пустая ячейка");
-       }
-
-    }
-      //  logger.debug("список студентов обновлен");
-        return list;
-
-    }
-}
-*/
-
-    public static ArrayList<Student> getStudents (FileInputStream fis,int iname, int isurname, int iemail, int iid,int iphone )throws IOException{
         Workbook wb = new XSSFWorkbook(fis);
         ArrayList<Student> list = new ArrayList();
 
+
         String name;
-        String surname;
         String email;
         String phone;
         String id;
 
         for (Row row: wb.getSheetAt(0)) {
+                name = (getCellText(row.getCell(iname)));
+                email = (getCellText(row.getCell(iemail)));
+                id = (getCellText(row.getCell(iid)));
+                phone = phoneconvert(getCellText(row.getCell(iphone)));
 
-            name = (getCellText(row.getCell(iname)));
-            surname = (getCellText(row.getCell(isurname)));
-            email = (getCellText(row.getCell(iemail)));
-            id = (getCellText(row.getCell(iid)));
-            phone = phoneconvert(getCellText(row.getCell(iphone)));
-            System.out.println(phone);
-            list.add(new Student(name,surname,email,phone,id));
+                list.add(new Student(name, email, phone, id));
         }
         list.remove(0);
         list.trimToSize();
+
         fis.close();
-        //System.out.println(converter(8.9175364142E9)+ "/n");
         return list;
+    }
+
+
+    public static ArrayList<String> getTitles(String file) throws IOException {
+
+        FileInputStream fis = new FileInputStream(file);
+        Workbook wb = new XSSFWorkbook(fis);
+        ArrayList<String> list = new ArrayList();
+
+        Row row = wb.getSheetAt(0).getRow(0);
+        for (Cell cell : row){
+            list.add(getCellText(cell));
+        }
+        list.remove(0);
+
+        fis.close();
+        return list;
+    }
+
+    public static void log(String file, ArrayList<Student> list) throws IOException {
+
+        FileInputStream fis = new FileInputStream(file);
+        Workbook wb = new XSSFWorkbook(fis);
+
+        int i = 1;
+        CellStyle redstyle;
+        CellStyle greenstyle;
+        redstyle.setFillBackgroundColor((short) 0);
+        greenstyle.setFillBackgroundColor((short) 10);
+
+        for (Student student : list){
+
+            Row row = wb.getSheetAt(0).getRow(i);
+            if (student.getIsSendMail()){
+               // row.getCell(imail).
+            }
+        }
+
     }
 
 
 
     public static String getCellText(Cell cell){
         String Result = "";
-        long Res;
         switch (cell.getCellType()) {
             case Cell.CELL_TYPE_STRING:
                 Result = cell.getRichStringCellValue().getString();
@@ -111,19 +115,6 @@ public class ParserImpl implements Parser {
         return Result;
     }
 
-    static long converter(double d){
-        long lon;
-        while(true){
-            if (d%10 !=0) {
-                d*=10;
-            } else{
-                lon = (long) d;
-                break;
-            }
-
-        }return lon;
-    }
-
     static String phoneconvert(String phone){
         String s = "";
         int i;
@@ -132,14 +123,15 @@ public class ParserImpl implements Parser {
                 s = s + phone.charAt(i);
             }
         }
-            /*if ((s.charAt(0) ==(char) 8) & (s.length() == 11) ) {
+            if ( (s.length()>0)&& (s.charAt(0) == '8') && (s.length() == 11) ) {
+
                 String str = "7";
                 for (i = 1; i<s.length();i++){
+
                     str = str + s.charAt(i);
                 }
                 s = str;
-            }*/
-              if (s.length() == 10 ) {
+            } else if ((s.length()>0)&&(s.length() == 10) ) {
                 s = 7 + s;
             }
         return s;

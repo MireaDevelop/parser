@@ -5,7 +5,6 @@ package parsing.students;
  */
 public class Student {
     private String name;
-    private String surname;
     private String mail;
     private String phone;
     private String vk_id;
@@ -14,9 +13,8 @@ public class Student {
     private boolean isSendMail = false;
 
 
-    public Student(String name, String surname, String mail, String phone, String vk_id) {
+    public Student(String name, String mail, String phone, String vk_id) {
         this.name = name;
-        this.surname = surname;
         this.mail = mail;
         this.phone = phone;
         this.vk_id = vk_id;
@@ -29,9 +27,6 @@ public class Student {
         return name;
     }
 
-    public String getSurname() {
-        return surname;
-    }
 
     public String getMail() {
         return mail;
@@ -59,9 +54,21 @@ public class Student {
         this.isSendMail = true;
     }
 
+    public boolean getIsSendPhone(){
+        return isSendPhone;
+    }
+
+    public boolean getIsSendVk(){
+        return isSendVk;
+    }
+
+    public boolean getIsSendMail(){
+        return isSendMail;
+    }
+
     @Override
     public String toString() {
-        return "Студент: " + name + " " + surname +
+        return "Студент: " + name +
                 " Почта " + isSendMail + " Вконтакте " + isSendVk +
                 " Телефон " + isSendPhone;
     }

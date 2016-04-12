@@ -20,12 +20,12 @@ public class SendMails {
             student = alist;
             String subject = jFrame.getThemeText();
             String content = "Привет, " + student.getName() + "\n" + jFrame.getMessageText();
-            String smtpHost = Settings.getSmtpHost();
-            String addressFrom = Settings.getAddressFrom();
+            String smtpHost =Settings.getSmtpHost();
+            String addressFrom =Settings.getAddressFrom();
             String addressTo = student.getMail();
             String login = Settings.getLogin();
-            String password = Settings.getPassword();
-            String smtpPort = Settings.getSmtpPort();
+            String password =Settings.getPassword();
+            String smtpPort =Settings.getSmtpPort();
             sendSimpleMessage(login, password, addressFrom, addressTo, content, subject, smtpPort, smtpHost);
         }
     }
