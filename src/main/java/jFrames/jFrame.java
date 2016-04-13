@@ -1,5 +1,6 @@
 package jFrames;
 
+import controller.Controller;
 import parsing.*;
 import parsing.students.Student;
 import parsing.students.Impl.ParserImpl;
@@ -23,6 +24,9 @@ public class jFrame extends JFrame {
     private static String messageText;
     private static String fileName;
     private static String themeText;
+    private boolean isMail;
+    private boolean isVk;
+    private boolean isPhone;
     FileInputStream fis;
 
     public jFrame() {
@@ -89,32 +93,26 @@ public class jFrame extends JFrame {
         });
 
         sendMailsButton.addActionListener(e -> {
+            themeText = themeField.getText();
+            messageText = messageField.getText();
+            ArrayList<Student> list;
             try {
-                themeText = themeField.getText();
-                messageText = messageField.getText();
-                ArrayList<Student> list;
-                try {
-                    list = ParserImpl.getStudents(fis, 1, 2, 3, 4, 5);
-                    //Lists.SortList(Parsing.parse(jFrame.getFileName()));
-                } catch (IOException e1) {
-                    JOptionPane.showMessageDialog(this,
-                            "Выберите документ с данными.",
-                            "Не выбран документ.",
-                            JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                    try{
-                        SendMails.Send(list);
-                    }catch (AuthenticationFailedException e2){
-                        JOptionPane.showMessageDialog(this,
-                        "Проверьте введёные в настройках данные",
-                                "Ошибка авторизации!",
-                                JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-            } catch (UnsupportedEncodingException | MessagingException e3) {
-                e3.printStackTrace();
+                list = ParserImpl.getStudents(fis, 1, 2, 3, 4, 5);
+                //Lists.SortList(Parsing.parse(jFrame.getFileName()));
+            } catch (IOException e1) {
+                JOptionPane.showMessageDialog(this,
+                        "Выберите документ с данными.",
+                        "Не выбран документ.",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
+            }
+            //    SendMails.Send(list);
+            try {
+                new Controller(list, false, true, false).send();
+            } catch (UnsupportedEncodingException e1) {
+                e1.printStackTrace();
+            } catch (MessagingException e1) {
+                e1.printStackTrace();
             }
             JOptionPane.showMessageDialog(this,
                     "Рассылка выполнена",
