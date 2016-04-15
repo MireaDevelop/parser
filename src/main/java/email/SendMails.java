@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+//Adding some changes here
 public class SendMails {
     private static final String ENCODING = "UTF-8";
 
