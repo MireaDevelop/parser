@@ -28,6 +28,7 @@ public class jFrame extends JFrame {
     private boolean isVk;
     private boolean isPhone;
     FileInputStream fis;
+    Controller controller = new Controller();
 
     public jFrame() {
         super("Тестовый парсер");
@@ -95,6 +96,8 @@ public class jFrame extends JFrame {
         sendMailsButton.addActionListener(e -> {
             themeText = themeField.getText();
             messageText = messageField.getText();
+            controller.setMessage(messageText);
+            controller.setThemeText(themeText);
             ArrayList<Student> list;
             try {
                 list = ParserImpl.getStudents(fis, 1, 2, 3, 4, 5);
@@ -108,7 +111,12 @@ public class jFrame extends JFrame {
             }
             //    SendMails.Send(list);
             try {
-                new Controller(list, false, true, false).send();
+                //перенос в подходящие места
+                controller.setSendMail();
+                controller.setSendVk();
+                controller.setSendPhone();
+                controller.setList(list);
+                controller.send();
             } catch (UnsupportedEncodingException e1) {
                 e1.printStackTrace();
             } catch (MessagingException e1) {

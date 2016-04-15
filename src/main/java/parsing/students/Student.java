@@ -12,6 +12,7 @@ public class Student {
     private boolean isSendPhone = false;
     private boolean isSendVk = false;
     private boolean isSendMail = false;
+    private String messageTest;
 
 
     public Student(String name, String surname, String mail, String phone, String vk_id) {
@@ -23,7 +24,9 @@ public class Student {
 
     }
 
-
+    public void setMessageTest(String messageTest) {
+        this.messageTest = messageTest;
+    }
 
     public String getName() {
         return name;

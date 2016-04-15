@@ -15,19 +15,22 @@ import java.util.ArrayList;
  */
 public class Controller {
     private ArrayList<Student> list;
-    private boolean isSendVk;
-    private boolean isSendMail;
-    private boolean isSendPhone;
+    private boolean isSendVk = false;
+    private boolean isSendMail = false;
+    private boolean isSendPhone = false;
+    private String message;
+    private String themeText;
 
-
-    public Controller(ArrayList<Student> list, boolean isSendVk, boolean isSendMail, boolean isSendPhone) {
+    public Controller(ArrayList<Student> list) {
         this.list = list;
-        this.isSendVk = isSendVk;
-        this.isSendMail = isSendMail;
-        this.isSendPhone = isSendPhone;
+    }
+
+    public Controller() {
+
     }
 
     public void send() throws UnsupportedEncodingException, MessagingException {
+        generateMessage(list);
         if(isSendMail) {
             SendMails.Send(list);
         }
@@ -39,5 +42,34 @@ public class Controller {
         }
     }
 
+    private void generateMessage(ArrayList<Student> list) {
+        //Генерация именовонаго сообщения
+        for(Student student : list) {
+            student.setMessageTest("");
+        }
+    }
 
+    public void setSendVk() {
+        isSendVk = true;
+    }
+
+    public void setSendMail() {
+        isSendMail = true;
+    }
+
+    public void setSendPhone() {
+        isSendPhone = true;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setThemeText(String themeText) {
+        this.themeText = themeText;
+    }
+
+    public void setList(ArrayList<Student> list) {
+        this.list = list;
+    }
 }
