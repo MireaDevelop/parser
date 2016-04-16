@@ -11,7 +11,8 @@ public interface Vk {
 
      void sendMessage(Student student) throws Exception;
      String invokeApi(Parametrs params) throws Exception;
-     void sendVk(ArrayList<Student> students);
+
+     void setVkStudents(ArrayList<Student> students);
      void setAccessToken(String accessToken);
 
 }

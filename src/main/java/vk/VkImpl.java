@@ -1,12 +1,7 @@
 package vk;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import parsing.students.Student;
 
 import java.util.ArrayList;
@@ -14,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by aleksejpluhin on 12.04.16.
  */
-public class VkImpl implements Runnable, Vk {
+public class VkImpl implements Vk, Runnable {
     private static String API_VERSION = "5.50";
     private static final String API_REQUEST = "https://api.vk.com/method/messages.send"
             + "?{PARAMETERS}"
@@ -26,9 +21,9 @@ public class VkImpl implements Runnable, Vk {
     public VkImpl() {
     }
 
-    public void sendVk(ArrayList<Student> students) {
+    public void setVkStudents(ArrayList<Student> students) {
         this.students = students;
-        this.run();
+
     }
 
     public void setAccessToken(String accessToken) {
@@ -39,6 +34,9 @@ public class VkImpl implements Runnable, Vk {
 
     public void sendMessage(Student student) throws Exception {
       Parametrs parametrs = new Parametrs();
+        if (student.getVk_id().length() == 0 || student.getVk_id() == null) {
+            return;
+        }
       if(student.getVk_id().replaceAll("[0-9]","").length() == 0 ) {
           parametrs.setParams("user_id", student.getVk_id());
           parametrs.setParams("message", student.getMessageText());
@@ -71,6 +69,7 @@ public class VkImpl implements Runnable, Vk {
         }
 
     }
+
 
     @Override
     public void run() {

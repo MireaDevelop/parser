@@ -40,7 +40,9 @@ public class Controller {
             mail.sendMail(list);
         }
         if(isSendVk) {
-            vk.sendVk(list);
+            vk.setVkStudents(list);
+            new Thread((Runnable) vk).start();
+
         }
         if(isSendPhone) {
             phone.sendPhone(list);
