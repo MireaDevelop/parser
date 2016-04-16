@@ -13,5 +13,5 @@ public interface Vk {
      String invokeApi(Parametrs params) throws Exception;
      void sendVk(ArrayList<Student> students);
      void setAccessToken(String accessToken);
-     void setId(String id);
+
 }

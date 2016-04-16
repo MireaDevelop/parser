@@ -112,10 +112,11 @@ public class jFrame extends JFrame {
             //    SendMails.Send(list);
             try {
                 //перенос в подходящие места
-                controller.setSendMail();
+                //  controller.setSendMail();
                 controller.setSendVk();
-                controller.setSendPhone();
+                //     controller.setSendPhone();
                 controller.setList(list);
+                controller.setVkAcessToken("NOT IMPLEMENT");
                 controller.send();
             } catch (UnsupportedEncodingException e1) {
                 e1.printStackTrace();

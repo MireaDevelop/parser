@@ -1,5 +1,12 @@
 package vk;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import parsing.students.Student;
 
 import java.util.ArrayList;
@@ -8,15 +15,13 @@ import java.util.ArrayList;
  * Created by aleksejpluhin on 12.04.16.
  */
 public class VkImpl implements Runnable, Vk {
-    private ArrayList<Student> students;
-    private String accessToken;
-    private String id;
-
     private static String API_VERSION = "5.50";
-    private static final String API_REQUEST = "https://api.vk.com/method/message.send"
+    private static final String API_REQUEST = "https://api.vk.com/method/messages.send"
             + "?{PARAMETERS}"
             + "&access_token={ACCESS_TOKEN}"
             + "&v=" + API_VERSION;
+    private ArrayList<Student> students;
+    private String accessToken;
 
     public VkImpl() {
     }
@@ -30,20 +35,25 @@ public class VkImpl implements Runnable, Vk {
         this.accessToken = accessToken;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+
 
     public void sendMessage(Student student) throws Exception {
       Parametrs parametrs = new Parametrs();
       if(student.getVk_id().replaceAll("[0-9]","").length() == 0 ) {
-          parametrs.setParams("user_id", id);
+          parametrs.setParams("user_id", student.getVk_id());
           parametrs.setParams("message", student.getMessageText());
       } else {
           parametrs.setParams("domain", student.getVk_id());
           parametrs.setParams("message", student.getMessageText());
       }
       String urlRequest = invokeApi(parametrs);
+
+        Document document = Jsoup.connect(String.valueOf(urlRequest)).ignoreContentType(true).post();
+        if(document.html().contains("response")) {
+            student.setIsSendVk();
+        } else if(document.html().contains("error")) {
+            System.out.println(document.html());
+        }
 
 
 
@@ -77,4 +87,6 @@ public class VkImpl implements Runnable, Vk {
             }
         }
     }
+
+
 }

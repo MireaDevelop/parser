@@ -9,7 +9,7 @@ import vk.VkImpl;
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.StringJoiner;
+
 
 
 /**
@@ -50,7 +50,7 @@ public class Controller {
     private void generateMessage(ArrayList<Student> list) {
         //Генерация именовонаго сообщения
         for(Student student : list) {
-            student.setMessageText("");
+            student.setMessageText(message.replace("[Name]", student.getName()));
         }
     }
 
@@ -78,9 +78,6 @@ public class Controller {
         this.list = list;
     }
 
-    public void setVkId(String id) {
-        vk.setId(id);
-    }
 
     public void setVkAcessToken(String token) {
         vk.setAccessToken(token);
