@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class Phone {
 
-    public static void sendPhone(ArrayList<Student> students) {
+    public  void sendPhone(ArrayList<Student> students) {
 
     }
 }

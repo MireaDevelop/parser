@@ -5,13 +5,13 @@ import parsing.students.Student;
 import java.util.ArrayList;
 
 /**
- * Created by aleksejpluhin on 12.04.16.
+ * Created by aleksejpluhin on 16.04.16.
  */
-public class Vk {
+public interface Vk {
 
-    public static void sendVk(ArrayList<Student> students) {
-
-    }
-
-
+     void sendMessage(Student student) throws Exception;
+     String invokeApi(Parametrs params) throws Exception;
+     void sendVk(ArrayList<Student> students);
+     void setAccessToken(String accessToken);
+     void setId(String id);
 }
