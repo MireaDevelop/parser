@@ -4,6 +4,7 @@ import parsing.*;
 import parsing.students.Student;
 import parsing.students.Impl.ParserImpl;
 import email.*;
+import Sms.*;
 
 
 import javax.mail.AuthenticationFailedException;
@@ -103,6 +104,7 @@ public class jFrame extends JFrame {
                     return;
                 }
                     try{
+
                         SendMails.Send(list);
                     }catch (AuthenticationFailedException e2){
                         e2.printStackTrace();
