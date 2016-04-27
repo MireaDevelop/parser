@@ -1,5 +1,6 @@
 package Sms;
 
+import Exeptions.*;
 import parsing.students.Student;
 
 import java.io.BufferedReader;
@@ -12,114 +13,143 @@ import java.util.ArrayList;
 /**
  * Created by Вадим on 20.04.2016.
  */
-public class SmsRu implements SmsServices {
+public class SmsRu extends SmsServices {
 
-    private ArrayList<Student> list;
-    private String login;
-    private String password;
-    private String message;
-    private String from;
 
-   
-
-    SmsRu(ArrayList<Student> list, String login, String password, String message, String from){
-        this.list = list;
-        this.login = login;
-        this.password = password;
-        this.message="";
-        for (int i = 0; i <message.length() ; i++) {
-            if (message.charAt(i) == ' '){
-               this.message += "%20";
-            } else {
-                this.message+= message.charAt(i);
-            }
-        }
-        this.from = from;
-        System.out.println(this.message);
+    SmsRu(ArrayList<Student> list, String login, String password, String message){
+        super(list,login,password,message);
     }
 
-    @Override
-    public void CreateGroup() {
+
+    public void SendMsg() throws ServiceNotWork, AuthFailed, NotConfirmLogin, TooBigSms, NonText, NotEnoughMoney {
 
         String numbers="";
         int count=0;
+        int n = 0;
         final int max = 100;
 
         if (checkbill()) {
 
             for (int i=0; i<list.size();i++) {
                 if (count == max) {
-                    Send(numbers);
+                    if (Send(numbers)) {
+                        for (int j = i-count; j < i ; j++) {
+                            list.get(j).setIsSendPhone();
+                        }
+                    }
                     count = 0;
                     numbers = "";
                 }
+
                 if (count < max) {
-                    numbers += list.get(i).getPhone();
+                    numbers += list.get(i).getPhone()+ ",";
                     count++;
+                    n = i;
                 }
             }
-        Send(numbers);
+        if (Send(numbers)){
+            for (int j = n-count; j <n ; j++) {
+                list.get(j).setIsSendPhone();
+            }
+        }
+        } else {
+            throw new NotEnoughMoney("Недостаточно средств на счете");
         }
 
     }
 
 
     @Override
-    public void Send(String to) {
+    public boolean Send(String to) throws ServiceNotWork, NonText, AuthFailed, NotConfirmLogin, TooBigSms {
 
-        String result;
-        final String request = "http://sms.ru/sms/send?login=" + login +
-                "&password=" + password + "&to=" + to + "&text=" + message;//"&test=1"
-        result = sendrequest(request);
-        //System.out.println(result);
+        ArrayList<String> response;
+
+        final String request = "http://sms.ru/sms/send?login=" + login + "&password=" + password + "&to=" + to + "&text=" + message;//"&test=1"
+        response = sendrequest(request);
+
+        if (response.get(0) == "100"){
+            return true;
+        } if (response.get(0) != "100"){
+            throwError(response.get(0));
+            return false;
+        }
+
+        return false;
+    }
+
+    protected boolean checkbill() throws ServiceNotWork, NotConfirmLogin, AuthFailed, TooBigSms, NonText {
+        ArrayList<String> responecost,responsebalance;
+        double balance = 0;
+        double cost = 0;
+        final String requestbalance = "http://sms.ru/my/balance?login=" + login + "&password=" + password;
+        final String requsestcost = "http://sms.ru/sms/cost?login=" + login + "&password=" + password + "&to=" + list.get(0).getPhone() + "&text=" + message;
+        //final String testcost = "http://sms.ru/sms/cost?login=" + login + "&password=" + password + "&to=" + "79156666666" + "&text=" + message;
+
+        responecost = sendrequest(requsestcost);
+        responsebalance =sendrequest(requestbalance);
+
+        if (responecost.get(0) == "100") {
+            cost = Double.parseDouble(responecost.get(1));
+        }   else if (responecost.get(0) != "100"){
+            throwError(responecost.get(0));
+        }
+
+        if (responsebalance.get(0) == "100"){
+            balance = Double.parseDouble(responsebalance.get(1));
+        } else if (responsebalance.get(0) != "100"){
+            throwError(responsebalance.get(0));
+        }
+
+        responecost = null;
+        responsebalance = null;
+
+        if (balance > cost *list.size()){
+            return true;
+        } else return false;
 
     }
 
-    public boolean checkbill() {
-        String result;
-        final String balance = "http://sms.ru/my/balance?login=" + login + "&password=" + password;
-        //final String cost = "http://sms.ru/sms/cost?login=" + login + "&password=" + password + "&to=" + list.get(0).getPhone() + "&text=" + message;
-        final String testcost = "http://sms.ru/sms/cost?login=" + login + "&password="
-                + password + "&to=" + "79156666666" + "&text=" + message;
-        result = sendrequest(testcost);
 
 
-        //if (requestcost * list.getsize() < requestbalance) {
-        return true;
-
-        //else return false;
-    }
-
-    public String sendrequest(String urlToRead) {
+    protected ArrayList<String> sendrequest(String urlToRead) {
         URL url;
         HttpURLConnection connection;
         BufferedReader rd;
         String line;
-        String r = "";
-        String result = "";
+        ArrayList<String> list = new ArrayList<>();
         try {
             url = new URL(urlToRead);
             connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("POST");
-            //sleep(30);
+            connection.setRequestMethod("GET");
+
             rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             while ((line = rd.readLine()) != null) {
-                result += line;
+                list.add(line);
             }
             rd.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(result);
-        /*line = "";
-        for (int i = 0; i <result.length() ; i++) {
-            if (line.length() !=3){
-                line += result.charAt(i);
-            } else {
-                list.add(line);
-                line="";
-            }
-        }*/;
-        return result;
+
+        return list;
+    }
+
+    protected void throwError(String error) throws ServiceNotWork, AuthFailed, NotConfirmLogin, NonText, TooBigSms {
+        switch (error){
+            case "203":
+                throw new NonText("Нет текста");
+
+            case "205":
+                throw new TooBigSms("Слишком большое сообщение(превышает 8 смс)");
+
+            case  "220":
+                throw new ServiceNotWork("Сервис временно недоступен");
+
+            case "301":
+                throw new AuthFailed("Неправильный логин или пароль");
+
+            case "302":
+                throw new NotConfirmLogin("Аккаунт не подтвержден");
+        }
     }
 }
