@@ -1,8 +1,13 @@
 package org.viewControllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import org.controllers.settingsController;
+
+import static org.Main.getMainStage;
 
 public class settingsViewController {
     @FXML
@@ -12,9 +17,9 @@ public class settingsViewController {
     @FXML
     private ComboBox<String> domainBox;
     @FXML
-    private TextField loginField;
+    private TextField emailLoginField;
     @FXML
-    private TextField passwordField;
+    private TextField emailPasswordField;
     @FXML
     private CheckBox vk;
     @FXML
@@ -22,13 +27,14 @@ public class settingsViewController {
     @FXML
     private CheckBox sms;
     @FXML
+    private TextField smsLoginField;
+    @FXML
+    private TextField smsPasswordField;
+    @FXML
     private Button chooseFile;
     @FXML
     private Button goNext;
-    @FXML
-    private Image image;
 
-//    private Stage settingStage;
 
     @FXML
     private void initialize() { //ЗАПОЛНИТЬ!!!//
@@ -65,17 +71,6 @@ public class settingsViewController {
     private OnClickedListener choosingVkAuthListener = null;
 
     @FXML
-    private void dndFileChoose(){
-        if (dndFileChooseListener !=null)
-            dndFileChooseListener.onClick();
-    }
-    public void setDndFileChooseListener(OnClickedListener dndFileChooseListener){
-        this.dndFileChooseListener = dndFileChooseListener;
-    }
-    private OnClickedListener dndFileChooseListener = null;
-
-
-    @FXML
     private void choosingFile() {
         if(choosingFileListener !=null)
             choosingFileListener.onClick();
@@ -88,8 +83,9 @@ public class settingsViewController {
 
     @FXML
     private void goNext() {
-        if(goNextListener != null)
-            goNextListener.onClick();
+ //       if(goNextListener != null)
+ //           goNextListener.onClick();
+        messageViewController.initMessageScene();
     }
     public void setGoNextListener(OnClickedListener goNextListener){
         this.goNextListener = goNextListener;
@@ -107,11 +103,11 @@ public class settingsViewController {
     public ComboBox<String> getDomainBox() {
         return domainBox;
     }
-    public TextField getLoginField() {
-        return loginField;
+    public TextField getEmailLoginField() {
+        return emailLoginField;
     }
-    public TextField getPasswordField() {
-        return passwordField;
+    public TextField getEmailPasswordField() {
+        return emailPasswordField;
     }
     public CheckBox getVk() {
         return vk;
@@ -119,11 +115,19 @@ public class settingsViewController {
     public CheckBox getSms() {
         return sms;
     }
+    public TextField getSmsPasswordField() {
+        return smsPasswordField;
+    }
+    public TextField getSmsLoginField() {
+        return smsLoginField;
+    }
     public Button getChooseFile() {
         return chooseFile;
     }
 
-
+    public void setHostsBox(ComboBox<String> hostsBox) {
+        this.hostsBox = hostsBox;
+    }
     public void setEmail(CheckBox email) {
         this.email = email;
     }
@@ -133,7 +137,24 @@ public class settingsViewController {
     public void setSms(CheckBox sms) {
         this.sms = sms;
     }
-    public void setLoginField(TextField loginField) {
-        this.loginField = loginField;
+    public void setEmailLoginField(TextField emailLoginField) {
+        this.emailLoginField = emailLoginField;
+    }
+    public void setSmsLoginField(TextField smsLoginField) {
+        this.smsLoginField = smsLoginField;
+    }
+
+    public static void initSettingsScene() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(settingsController.class.getClassLoader().getResource("view/settingsView.fxml"));
+            AnchorPane settingsLayout;
+            settingsLayout = loader.load();
+            getMainStage().setScene(new Scene(settingsLayout));
+
+            getMainStage().show();
+        } catch (Exception e) {
+            System.out.print(e);
+        }
     }
 }

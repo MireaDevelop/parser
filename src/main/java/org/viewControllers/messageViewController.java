@@ -1,9 +1,15 @@
 package org.viewControllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import org.controllers.settingsController;
+
+import static org.Main.getMainStage;
 
 /**
  * Created by Дмитрий on 16.04.2016.
@@ -23,8 +29,9 @@ public class messageViewController {
 
     @FXML
     public void choosingDoIt(){
-        if (choosingDoItListener !=null)
-            choosingDoItListener.onClick();
+        //if (choosingDoItListener !=null)
+        //    choosingDoItListener.onClick();
+        statusViewController.initStatusScene();
     }
     public void setChoosingDoItListener(OnClickedListener choosingDoItListener){
         this.choosingDoItListener = choosingDoItListener;
@@ -40,5 +47,19 @@ public class messageViewController {
 
     public TextArea getMessageText() {
         return messageText;
+    }
+
+    public static void initMessageScene() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(settingsController.class.getClassLoader().getResource("view/messageView.fxml"));
+            AnchorPane settingsLayout;
+            settingsLayout = loader.load();
+            getMainStage().setScene(new Scene(settingsLayout));
+
+            getMainStage().show();
+        } catch (Exception e) {
+            System.out.print(e);
+        }
     }
 }

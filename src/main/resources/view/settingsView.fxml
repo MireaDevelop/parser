@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.viewControllers.settingsViewController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.viewControllers.settingsViewController">
    <children>
       <CheckBox fx:id="email" layoutX="148.0" layoutY="26.0" mnemonicParsing="false" />
       <Label layoutX="165.0" layoutY="14.0" prefHeight="40.0" prefWidth="71.0" text="Почта">
@@ -31,38 +31,50 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="loginField" layoutX="225.0" layoutY="126.0" prefHeight="25.0" prefWidth="155.0" />
+      <TextField fx:id="emailLoginField" layoutX="225.0" layoutY="126.0" prefHeight="25.0" prefWidth="155.0" />
       <Label fx:id="passwordStr" layoutX="40.0" layoutY="160.0" prefHeight="25.0" prefWidth="61.0" text="Пароль">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="passwordField" layoutX="225.0" layoutY="160.0" prefHeight="25.0" prefWidth="155.0" />
+      <TextField fx:id="emailPasswordField" layoutX="225.0" layoutY="160.0" prefHeight="25.0" prefWidth="155.0" />
       <CheckBox fx:id="vk" layoutX="129.0" layoutY="199.0" mnemonicParsing="false" />
       <Label layoutX="148.0" layoutY="191.0" prefHeight="32.0" prefWidth="105.0" text="Вконтакте">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Button fx:id="vkAuth" layoutX="148.0" layoutY="235.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="Авторизация" />
-      <CheckBox fx:id="sms" layoutX="122.0" layoutY="282.0" mnemonicParsing="false" />
-      <Label layoutX="142.0" layoutY="274.0" text="Смс-сервис">
+      <Button fx:id="vkAuth" layoutX="148.0" layoutY="231.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="Авторизация" />
+      <CheckBox fx:id="sms" layoutX="119.0" layoutY="274.0" mnemonicParsing="false" />
+      <Label layoutX="142.0" layoutY="266.0" text="Смс-сервис">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Label layoutX="122.0" layoutY="344.0" text="Выберите файл">
+      <Label layoutX="40.0" layoutY="306.0" prefHeight="25.0" prefWidth="61.0" text="Сервис">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ComboBox layoutX="226.0" layoutY="306.0" prefHeight="25.0" prefWidth="155.0" />
+      <Label layoutX="40.0" layoutY="340.0" prefHeight="25.0" prefWidth="61.0" text="Логин">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="smsLoginField" layoutX="226.0" layoutY="340.0" prefHeight="25.0" prefWidth="155.0" />
+      <Label layoutX="40.0" layoutY="374.0" prefHeight="25.0" prefWidth="61.0" text="Пароль">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="smsPasswordField" layoutX="225.0" layoutY="374.0" prefHeight="25.0" prefWidth="156.0" />
+      <Label layoutX="122.0" layoutY="409.0" text="Выберите файл">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <ImageView fitHeight="66.0" fitWidth="85.0" layoutX="21.0" layoutY="386.0" onDragDropped="#dndFileChoose" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/dnd.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="120.0" layoutY="386.0" prefHeight="66.0" prefWidth="165.0" text="Перетащите файл в форму слева или выберите файл вручную справа" textAlignment="JUSTIFY" wrapText="true" />
-      <Button fx:id="chooseFile" layoutX="297.0" layoutY="386.0" mnemonicParsing="false" onAction="#choosingFile" prefHeight="66.0" prefWidth="85.0" text="Выбрать вручную" wrapText="true" />
-      <Button fx:id="goNext" layoutX="106.0" layoutY="461.0" mnemonicParsing="false" onAction="#goNext" prefHeight="25.0" prefWidth="189.0" text="Продолжить" />
+      <Button fx:id="chooseFile" layoutX="12.0" layoutY="462.0" mnemonicParsing="false" onAction="#choosingFile" prefHeight="25.0" prefWidth="118.0" text="Выбрать" wrapText="true" />
+      <Button fx:id="goNext" layoutX="106.0" layoutY="503.0" mnemonicParsing="false" onAction="#goNext" prefHeight="25.0" prefWidth="189.0" text="Продолжить" />
    </children>
 </AnchorPane>
