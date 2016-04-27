@@ -18,9 +18,7 @@ import java.util.List;
 import static org.apache.poi.ss.usermodel.IndexedColors.ORANGE;
 import static org.apache.poi.ss.usermodel.IndexedColors.RED;
 
-/**
- * Created by vadim0872 on 11.04.16.
- */
+
 public class ParserImpl implements Parser {
          static int emailindex;
          static int vkindex;
