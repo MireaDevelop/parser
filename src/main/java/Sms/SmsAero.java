@@ -8,12 +8,25 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 
 /**
  * Created by Вадим on 24.04.2016.
  */
 public class SmsAero extends SmsServices {
+
+    private static ArrayList<Student> list;
+
+    public static void main(String[] args) {
+        SmsAero smsAero = new SmsAero(list,"qwery","qwery","Вот такое письмо я хочу увидеть!@#$%^&*()_+");
+        String s;
+        s = smsAero.message;
+        System.out.println(s);
+        s = URLDecoder.decode(smsAero.message);
+        System.out.println(s);
+    }
+
 
     public SmsAero(ArrayList<Student> list, String login, String password, String message) {
         super(list, login, DigestUtils.md5Hex(password), message);
