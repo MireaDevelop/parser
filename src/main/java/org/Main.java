@@ -1,25 +1,23 @@
 package org;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import org.controllers.settingsController;
+import org.viewControllers.SettingsViewController;
 
 public class Main extends Application {
 
-    private static Stage MainStage;
+    private static Stage mainStage;
+    private static SettingsViewController settingsController;
 
     public static void main(String[] args) {
         Application.launch(Main.class, args);
     }
     @Override
     public void start(Stage stage) throws Exception {
-
-        MainStage = stage;
-        MainStage.setTitle("Тестовый парсер");
-
-        settingsController.initSettingsScene();
+        mainStage = stage;
+        settingsController = SettingsViewController.initSettingsScene(mainStage);
     }
 
     public static Stage getMainStage() {
-        return MainStage;
+        return mainStage;
     }
 }

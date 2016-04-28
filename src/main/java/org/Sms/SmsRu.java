@@ -1,7 +1,7 @@
-package Sms;
+package org.Sms;
 
-import Exeptions.*;
-import parsing.students.Student;
+import org.exeptions.*;
+import org.students.Student;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

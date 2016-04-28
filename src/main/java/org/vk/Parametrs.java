@@ -1,4 +1,4 @@
-package vk;
+package org.vk;
 
 import java.util.HashMap;
 

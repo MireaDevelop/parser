@@ -1,7 +1,6 @@
-package Sms;
+package org.Sms;
 
-import Exeptions.*;
-import parsing.students.Student;
+import org.students.Student;
 
 import java.util.ArrayList;
 

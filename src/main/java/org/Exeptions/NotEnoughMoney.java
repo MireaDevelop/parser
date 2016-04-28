@@ -1,4 +1,4 @@
-package Exeptions;
+package org.exeptions;
 
 /**
  * Created by Вадим on 21.04.2016.

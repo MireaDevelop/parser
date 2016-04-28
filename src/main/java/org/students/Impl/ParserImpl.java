@@ -1,22 +1,16 @@
-package parsing.students.Impl;
+package org.students.Impl;
 
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import parsing.students.Parser;
-import parsing.students.Student;
+import org.students.Parser;
+import org.students.Student;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-
-import static org.apache.poi.ss.usermodel.IndexedColors.ORANGE;
-import static org.apache.poi.ss.usermodel.IndexedColors.RED;
 
 
 public class ParserImpl implements Parser {
@@ -25,7 +19,7 @@ public class ParserImpl implements Parser {
          static int phoneindex;
 
 
-    public static ArrayList<Student> getStudents (String file,int iname, int iemail, int iid,int iphone )throws IOException{
+    public static ArrayList<Student> getStudents (String file,int iname, int iSurname, int iemail, int iid,int iphone )throws IOException{
 
         emailindex = iemail;
         vkindex = iid;
@@ -38,17 +32,19 @@ public class ParserImpl implements Parser {
 
 
         String name;
+        String surname;
         String email;
         String phone;
         String id;
 
         for (Row row: wb.getSheetAt(0)) {
                 name = (getCellText(row.getCell(iname)));
+                surname = getCellText(row.getCell(iSurname));
                 email = (getCellText(row.getCell(iemail)));
                 id = (getCellText(row.getCell(iid)));
                 phone = phoneconvert(getCellText(row.getCell(iphone)));
 
-                list.add(new Student(name, email, phone, id));
+                list.add(new Student(name, surname, email, phone, id));
         }
         list.remove(0);
         list.trimToSize();

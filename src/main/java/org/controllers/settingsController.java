@@ -91,7 +91,7 @@ public class settingsController {
             settingsLayout = loader.load();
             getMainStage().setScene(new Scene(settingsLayout));
 
-            //settingsViewController controller = loader.getController();
+            //SettingsViewController controller = loader.getController();
             //controller.setSettingStage(getMainStage());
 
             getMainStage().show();

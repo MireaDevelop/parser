@@ -1,8 +1,8 @@
-package vk;
+package org.vk;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import parsing.students.Student;
+import org.students.Student;
 
 import java.util.ArrayList;
 

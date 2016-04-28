@@ -1,4 +1,4 @@
-package parsing.students;
+package org.students;
 
 /**
  * Created by aleksejpluhin on 06.04.16.

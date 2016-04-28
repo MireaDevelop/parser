@@ -1,6 +1,6 @@
-package vk;
+package org.vk;
 
-import parsing.students.Student;
+import org.students.Student;
 
 import java.util.ArrayList;
 

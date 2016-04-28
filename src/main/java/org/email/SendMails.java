@@ -1,14 +1,9 @@
-package email;
-
-import jFrames.*;
-import parsing.students.Student;
+package org.email;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 public class SendMails {
@@ -21,7 +16,7 @@ public class SendMails {
     }
 
 
-    public  void sendMail(ArrayList<Student> list) throws MessagingException, UnsupportedEncodingException {
+    /*public  void sendMail(ArrayList<Student> list) throws MessagingException, UnsupportedEncodingException {
         Student student;
         for (Student alist : list) {
             student = alist;
@@ -35,7 +30,7 @@ public class SendMails {
             String smtpPort =Settings.getSmtpPort();
             sendSimpleMessage(login, password, addressFrom, addressTo, content, subject, smtpPort, smtpHost);
         }
-    }
+    }*/
 
     private static void sendSimpleMessage(String login, String password, String from, String to, String content, String subject, String smtpPort, String smtpHost)
             throws MessagingException, UnsupportedEncodingException {
