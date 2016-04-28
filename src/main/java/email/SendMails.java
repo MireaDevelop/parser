@@ -12,9 +12,16 @@ import java.util.List;
 import java.util.Properties;
 
 public class SendMails {
+
+
     private static final String ENCODING = "UTF-8";
 
-    public static void Send(ArrayList<Student> list) throws MessagingException, UnsupportedEncodingException {
+    public SendMails() {
+
+    }
+
+
+    public  void sendMail(ArrayList<Student> list) throws MessagingException, UnsupportedEncodingException {
         Student student;
         for (Student alist : list) {
             student = alist;
