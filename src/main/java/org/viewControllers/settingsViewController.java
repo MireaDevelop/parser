@@ -3,13 +3,15 @@ package org.viewControllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import org.controllers.settingsController;
+import javafx.stage.Stage;
 
-import static org.Main.getMainStage;
-
-public class settingsViewController {
+public class SettingsViewController {
+    private Scene scene = null;
     @FXML
     private CheckBox email;
     @FXML
@@ -35,9 +37,11 @@ public class settingsViewController {
     @FXML
     private Button goNext;
 
+    private SettingsViewController(){}
+
 
     @FXML
-    private void initialize() { //ЗАПОЛНИТЬ!!!//
+    private void initialize() { //TODO:ЗАПОЛНИТЬ!!!//
     }
 
     @FXML
@@ -144,17 +148,19 @@ public class settingsViewController {
         this.smsLoginField = smsLoginField;
     }
 
-    public static void initSettingsScene() {
+    public static SettingsViewController initSettingsScene(Stage stage) {
+        SettingsViewController controller = new SettingsViewController();
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(settingsController.class.getClassLoader().getResource("view/settingsView.fxml"));
+            loader.setLocation(SettingsViewController.class.getClassLoader().getResource("/view/settingsView.fxml"));
             AnchorPane settingsLayout;
             settingsLayout = loader.load();
-            getMainStage().setScene(new Scene(settingsLayout));
-
-            getMainStage().show();
+            controller.scene = new Scene(settingsLayout);
+            stage.setScene(controller.scene);
+            stage.show();
         } catch (Exception e) {
-            System.out.print(e);
+            e.printStackTrace();
         }
+        return controller;
     }
 }
