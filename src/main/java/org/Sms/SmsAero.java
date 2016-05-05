@@ -25,45 +25,7 @@ import java.net.URLDecoder;
  */
 public final class SmsAero extends SmsServices {
 
-    private static ArrayList<Student> list;
-
-    public static void main(String[] args) {
-
-        SmsAero smsAero = new SmsAero(list,"vadim0872@mail.ru","2lxy0c1","Проверка стоимости сообщения.","MireaDev");//8
-        String s;
-        //smsAero.from = "MireaDev";
-        s = smsAero.message;
-        System.out.println(s);
-        s = URLDecoder.decode(smsAero.message);
-        System.out.println(s);
-        try {
-            //smsAero.Send("79175364142");
-            try {
-                smsAero.checkbill();
-            } catch (NotConfirmSenderName notConfirmSenderName) {
-                notConfirmSenderName.printStackTrace();
-            } catch (NotEnoughMoney notEnoughMoney) {
-                notEnoughMoney.printStackTrace();
-            }
-        } catch (ServiceNotWork serviceNotWork) {
-            serviceNotWork.printStackTrace();
-        } catch (NonText nonText) {
-            nonText.printStackTrace();
-        } catch (AuthFailed authFailed) {
-            authFailed.printStackTrace();
-        } catch (NotConfirmLogin notConfirmLogin) {
-            notConfirmLogin.printStackTrace();
-        } catch (TooBigSms tooBigSms) {
-            tooBigSms.printStackTrace();
-        }
-       /* Response response = smsAero.sendrequest("http://gate.smsaero.ru/send/?user=vadim0872@mail.ru&password=50d9fb15e0b5e11953be7f03f379880&to=79175364142&textПроверка стоимости сообщения. Тест, тест, тест, надо набрать больше 70 символов кириллицы, а лучше с запасом!=&from=NEWS&type=3&answer=json");
-        System.out.println(response.id);
-        System.out.println(response.result);
-        Response response1 = smsAero.sendrequest("https://gate.smsaero.ru/checktarif/?user=vadim0872@mail.ru&password=50d9fb15e0b5e11953be7f03f379880c&answer=json");
-        System.out.println(response1.reason.Direct_channel);
-        System.out.println(response1.result);*/
-
-    }
+   
 
 
     public SmsAero(ArrayList<Student> list, String login, String password, String message,String from) {
