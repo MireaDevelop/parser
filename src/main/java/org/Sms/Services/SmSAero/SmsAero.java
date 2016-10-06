@@ -1,26 +1,19 @@
 package org.Sms.Services.SmSAero;
 
-import org.Sms.Services.SmsService;
-import org.exeptions.*;
-import org.students.Impl.ParserImpl;
-import org.students.Parser;
-import org.students.Student;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
+import org.Sms.Services.SmsService;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.exeptions.*;
+import org.students.Student;
 
-
+import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.util.ArrayList;
-
-import javax.net.ssl.HttpsURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 
 
 /**
@@ -33,67 +26,7 @@ public final class SmsAero extends SmsService {
 
    private static ArrayList<Student> list;
 
-    public static void main(String[] args) {
-
-        list= new ArrayList<>();
-        list.add(new Student("","","",""));
-        SmsAero smsAero = new SmsAero(list,"vadim0872@mail.ru","82lxy0c1","Проверка стоимости сообщения.","MireaDev",true);//8
-        System.out.println(smsAero.password);
-        String s;
-        //smsAero.from = "MireaDev";
-        s = smsAero.message;
-        try {
-            smsAero.checkbill();
-        } catch (ServiceNotWork serviceNotWork) {
-            serviceNotWork.printStackTrace();
-        } catch (NotConfirmLogin notConfirmLogin) {
-            notConfirmLogin.printStackTrace();
-        } catch (AuthFailed authFailed) {
-            authFailed.printStackTrace();
-        } catch (TooBigSms tooBigSms) {
-            tooBigSms.printStackTrace();
-        } catch (NonText nonText) {
-            nonText.printStackTrace();
-        } catch (NotConfirmSenderName notConfirmSenderName) {
-            notConfirmSenderName.printStackTrace();
-        } catch (NotEnoughMoney notEnoughMoney) {
-            notEnoughMoney.printStackTrace();
-        }
-        System.out.println(s);
-        try {
-            s = URLDecoder.decode(smsAero.message, "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        System.out.println(s);
-        try {
-            //smsAero.Send("79175364142");
-            try {
-                smsAero.checkbill();
-            } catch (NotConfirmSenderName notConfirmSenderName) {
-                notConfirmSenderName.printStackTrace();
-            } catch (NotEnoughMoney notEnoughMoney) {
-                notEnoughMoney.printStackTrace();
-            }
-        } catch (ServiceNotWork serviceNotWork) {
-            serviceNotWork.printStackTrace();
-        } catch (NonText nonText) {
-            nonText.printStackTrace();
-        } catch (AuthFailed authFailed) {
-            authFailed.printStackTrace();
-        } catch (NotConfirmLogin notConfirmLogin) {
-            notConfirmLogin.printStackTrace();
-        } catch (TooBigSms tooBigSms) {
-            tooBigSms.printStackTrace();
-        }
-       /* Response response = smsAero.sendrequest("http://gate.smsaero.ru/send/?user=vadim0872@mail.ru&password=50d9fb15e0b5e11953be7f03f379880&to=79175364142&textПроверка стоимости сообщения. Тест, тест, тест, надо набрать больше 70 символов кириллицы, а лучше с запасом!=&from=NEWS&type=3&answer=json");
-        System.out.println(response.id);
-        System.out.println(response.result);
-        Response response1 = smsAero.sendrequest("https://gate.smsaero.ru/checktarif/?user=vadim0872@mail.ru&password=50d9fb15e0b5e11953be7f03f379880c&answer=json");
-        System.out.println(response1.reason.Direct_channel);
-        System.out.println(response1.result);*/
-
-    }
+    
 
 
     public SmsAero(ArrayList<Student> list, String login, String password, String message,String from, boolean sureEnoughtMoney) {

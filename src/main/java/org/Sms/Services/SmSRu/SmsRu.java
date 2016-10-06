@@ -4,16 +4,12 @@ package org.Sms.Services.SmSRu;
 import org.Sms.Services.SmsService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.exeptions.*;
-import org.students.Impl.ParserImpl;
 import org.students.Student;
-
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-
 import java.net.HttpURLConnection;
 import java.net.URL;
-
 import java.util.ArrayList;
 
 
@@ -38,30 +34,7 @@ public final class SmsRu extends SmsService {
         getToken();
     }
 
-    public static void main(String[] args) {
 
-
-
-
-        ArrayList<Student> list = ParserImpl.getStudents("test.xlsx",1,2,3,4);
-        //list.add(new Student("вася","qq@mail.ru","79175364142","id"));
-        SmsRu smsRu = new SmsRu(list,"79175364142","82lxy0c1","Тест, много теста","",true);
-        /*try {
-            //boolean q = smsRu.Send("79264918806");
-             //= smsRu.checkbill();
-            //System.out.println(q);
-        } catch (ServiceNotWork serviceNotWork) {
-            serviceNotWork.printStackTrace();
-        } catch (NotConfirmLogin notConfirmLogin) {
-            notConfirmLogin.printStackTrace();
-        } catch (AuthFailed authFailed) {
-            authFailed.printStackTrace();
-        } catch (TooBigSms tooBigSms) {
-            tooBigSms.printStackTrace();
-        } catch (NonText nonText) {
-            nonText.printStackTrace();
-        }*/
-    }
 
     public void SendMsg() throws ServiceNotWork, AuthFailed, NotConfirmLogin, TooBigSms, NonText,
             NotEnoughMoney, NotConfirmSenderName {
