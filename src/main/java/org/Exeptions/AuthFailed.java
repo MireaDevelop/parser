@@ -5,6 +5,8 @@ package org.exeptions;
  */
 public class AuthFailed extends Exception {
     public AuthFailed(String message){
+
         super(message);
+        this.getMessage();
     }
 }
