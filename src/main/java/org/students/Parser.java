@@ -1,13 +1,22 @@
 package org.students;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
-public abstract interface Parser  {
+public interface Parser  {
 
-    static ArrayList<Student> getStudents(FileInputStream fis, int iname, int isurname, int iemail, int iphone, int iid)throws IOException {
-        ArrayList<Student> list = null;
-        return  list;
+    static ArrayList<String> getTitles(String file) {
+        return null;
+    }
+
+    static ArrayList<Student> getStudents (String file, int iname, int iemail, int iid, int iphone ) {
+        return null;
+    }
+
+    static void log(String file, ArrayList<Student> list,boolean isSendVk, boolean isSendMail, boolean isSendPhone) {
+
+    }
+
+    static String phoneconvert(String phone){
+        return null;
     }
 }
