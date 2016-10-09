@@ -26,7 +26,7 @@ public final class SmsAero extends SmsService {
 
    private static ArrayList<Student> list;
 
-    
+
 
 
     public SmsAero(ArrayList<Student> list, String login, String password, String message,String from, boolean sureEnoughtMoney) {
